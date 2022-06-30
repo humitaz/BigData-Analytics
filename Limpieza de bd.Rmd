@@ -1,0 +1,26 @@
+---
+title: "Limpieza de bd"
+author: "Raysa, Ana P, Andrés, Adriana"
+date: "29/6/2022"
+output: html_document
+---
+
+
+```{r cars}
+setwd("~/GitHub/BigData-Analytics")
+
+library(haven)
+library(car)
+
+bd <- read.csv("pe_properties.csv", encoding = "UTF-8")
+bd1 <- subset(bd, operation_type=="Venta")
+bd_CD <- subset(bd1, property_type=="Departamento"|property_type=="Casa")
+bd_CD <- subset(bd_CD, currency=="USD")
+bd_CD <- subset(bd_CD, l3=="Lima")
+
+misvars <- c("id", "ad_type", "start_date", "end_date", "created_on", "lat", "lon", "l1", "l2", "l3", "l4", "l5", "l6", "rooms", "bedrooms", "bathrooms", "surface_total", "surface_covered", "price", "currency", "property_type", "operation_type")
+properati <- bd_CD[misvars]
+
+write.csv(properati,'properati.csv')
+```
+
