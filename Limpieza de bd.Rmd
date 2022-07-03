@@ -18,14 +18,15 @@ bd_CD <- subset(bd1, property_type=="Departamento"|property_type=="Casa")
 bd_CD <- subset(bd_CD, currency=="USD")
 bd_CD <- subset(bd_CD, l3=="Lima")
 
+library(dplyr)
 bd_CD$bedrooms <- ifelse(is.na(bd_CD$bedrooms), bd_CD$rooms, bd_CD$bedrooms)
+bd_CD$l5 <- ifelse(is.na(bd_CD$l5), bd_CD$l4, bd_CD$l5)
 
-misvars <- c("start_date", "end_date", "created_on", "l4", "l5", "l6", "bedrooms", "bathrooms", "surface_total", "surface_covered", "price", "currency", "property_type", "operation_type")
+misvars <- c("created_on", "l5", "bedrooms", "bathrooms", "surface_total", "surface_covered", "price", "property_type")
 properati <- bd_CD[misvars]
 
-library(dplyr)
-properati$l5 <- ifelse(is.na(properati$l5), properati$l4, properati$l5)
+properati2 <- na.omit(properati)
 
-write.csv(properati,'properati.csv', fileEncoding = "UTF-8")
+write.csv(properati2,'properati.csv', fileEncoding = "UTF-8")
 ```
 
